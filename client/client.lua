@@ -5,7 +5,7 @@ CreateThread(function()
                 local plyc = GetEntityCoords(PlayerPedId())
                 if #(plyc - v.coords) < 2 then 
                     wait = 0
-                    ESX.ShowFloatingHelpNotification("~r~E~w~ - "..v.name, v.coords)
+                    FloatingNotification("~r~E~w~ - "..v.name, v.coords)
                     if IsControlJustPressed(0, 38) then 
                         local elements = {}
                         print(json.encode(v.items))
@@ -51,3 +51,12 @@ CreateThread(function()
     end
 
 end)
+
+-- Show Floating Text --
+function FloatingNotification(msg, coords)
+    SetFloatingHelpTextWorldPosition(1, coords.x, coords.y, coords.z)
+    SetFloatingHelpTextStyle(1, 1, 5, -1, 3, 0)
+    BeginTextCommandDisplayHelp('STRING')
+    AddTextComponentSubstringPlayerName(msg)
+    EndTextCommandDisplayHelp(2, false, true, -1)
+end
